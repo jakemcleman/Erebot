@@ -19,6 +19,8 @@ public class Player : MonoBehaviour {
 
     GameObject treads;
     GameObject solarPanel;
+    GameObject head;
+
     public GameObject sun;
     public float rechargeRateMultiplier = 0.2f;
 
@@ -30,7 +32,9 @@ public class Player : MonoBehaviour {
 
         controller = GetComponent<CharacterController>();
         treads = transform.Find("Treads").gameObject;
-        solarPanel = transform.Find("SolarPanel").gameObject;
+        head = transform.Find("Head").gameObject;
+        solarPanel = head.transform.Find("SolarPanel").gameObject;
+        
 
         spawnPoint = transform.position;
 	}
@@ -60,9 +64,9 @@ public class Player : MonoBehaviour {
         {
             if (powerLevel > 0)
             {
-                if (movement.sqrMagnitude > 1)
+                if (movement.sqrMagnitude > 0.2f)
                 {
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(movement), maxTurnDeg * Time.deltaTime);
+                    head.transform.rotation = Quaternion.RotateTowards(head.transform.rotation, Quaternion.LookRotation(movement), maxTurnDeg * Time.deltaTime);
                     treads.transform.rotation = Quaternion.LookRotation(movement);
                 }
 
