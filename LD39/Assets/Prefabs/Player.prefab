@@ -472,8 +472,8 @@ MonoBehaviour:
   moveDrainRate: 0.1
   powerLevel: 1
   curDrainRate: 0
-  dustTrailParticles: []
-  dustMaxEmitRate: 20
+  deadBotPrefab: {fileID: 1823015450845862, guid: 918a3e7db2b56fa4aa05b16df53da601,
+    type: 2}
   sun: {fileID: 0}
   rechargeRateMultiplier: 0.2
 --- !u!143 &143346743818942192
@@ -552,7 +552,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1628107524
+  randomSeed: -605920516
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -642,7 +642,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.4044118, g: 0.26819968, b: 0.1635489, a: 0.553}
+      maxColor: {r: 0.38235295, g: 0.27330866, b: 0.17430797, a: 0.553}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1112,7 +1112,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 0
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1153,7 +1153,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 10
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1454,8 +1454,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.5955882, g: 0.44945928, b: 0.37224263, a: 0.8862745}
-        key1: {r: 0.625, g: 0.39360812, b: 0.24816178, a: 0.047058824}
+        key0: {r: 0.9852941, g: 0.825816, b: 0.7244809, a: 0.8862745}
+        key1: {r: 0.9117647, g: 0.753173, b: 0.65030277, a: 0.047058824}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -3814,7 +3814,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 424728019
+  randomSeed: -309210516
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3904,7 +3904,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.4044118, g: 0.26819968, b: 0.1635489, a: 0.553}
+      maxColor: {r: 0.38235295, g: 0.27330866, b: 0.17430797, a: 0.553}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4374,7 +4374,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 0
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -4415,7 +4415,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 10
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4716,8 +4716,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.5955882, g: 0.44945928, b: 0.37224263, a: 0.8862745}
-        key1: {r: 0.625, g: 0.39360812, b: 0.24816178, a: 0.047058824}
+        key0: {r: 0.9852941, g: 0.825816, b: 0.7244809, a: 0.8862745}
+        key1: {r: 0.9117647, g: 0.753173, b: 0.65030277, a: 0.047058824}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}

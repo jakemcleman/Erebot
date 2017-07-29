@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
@@ -14,8 +15,9 @@ public class Player : MonoBehaviour {
 
     public float curDrainRate;
 
-    public GameObject[] dustTrailParticles;
-    public float dustMaxEmitRate = 25;
+    public GameObject deadBotPrefab;
+
+    public GameObject fadeObject;
 
     Vector3 movement;
     Vector3 trueMovement;
@@ -30,6 +32,8 @@ public class Player : MonoBehaviour {
 
     Vector3 spawnPoint;
 
+    bool respawning;
+
 	void Start () {
         movement = new Vector3();
         trueMovement = new Vector3();
@@ -41,7 +45,12 @@ public class Player : MonoBehaviour {
         
 
         spawnPoint = transform.position;
-	}
+
+        respawning = false;
+
+        //Fade in
+        fadeObject.GetComponent<Image>().CrossFadeAlpha(0, 2, false);
+    }
 
     void Update()
     {
@@ -92,6 +101,12 @@ public class Player : MonoBehaviour {
         else
         {
             movement = Vector3.zero;
+
+            if (!respawning)
+            {
+                StartCoroutine("Respawn");
+                respawning = true;
+            }
         }
 
         if (controller.isGrounded)
@@ -104,5 +119,29 @@ public class Player : MonoBehaviour {
         }
 
         controller.Move(trueMovement * Time.deltaTime);
+    }
+
+    IEnumerator Respawn()
+    {
+        //Fade out
+        float timer = 2;
+        fadeObject.GetComponent<Image>().CrossFadeAlpha(1, 2, false);
+        while(timer > 0)
+        {
+            timer -= Time.deltaTime;
+            yield return null;
+        }
+
+        //Respawn
+        Instantiate(deadBotPrefab, transform.position, transform.rotation);
+        transform.position = spawnPoint;
+        movement = Vector3.zero;
+        trueMovement = Vector3.zero;
+        powerLevel = 1;
+
+        //Fade in
+        fadeObject.GetComponent<Image>().CrossFadeAlpha(0, 2, false);
+
+        respawning = false;
     }
 }
