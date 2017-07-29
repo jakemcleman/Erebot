@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     public float moveSpeed = 3;
+    public float acceleration = 2;
     public float maxTurnDeg = 360;
 
     public float moveDrainRate = 0.2f;
@@ -12,6 +13,9 @@ public class Player : MonoBehaviour {
     public float powerLevel = 10;
 
     public float curDrainRate;
+
+    public GameObject[] dustTrailParticles;
+    public float dustMaxEmitRate = 25;
 
     Vector3 movement;
     Vector3 trueMovement;
@@ -51,43 +55,47 @@ public class Player : MonoBehaviour {
         }
 
         //Scale down the input every frame
-        movement *= 0.75f;
+        movement *= 0.95f;
 
         //Read the input from keyboard
-        Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        Vector3 input = new Vector3(Input.GetAxis("Horizontal") * acceleration, 0, Input.GetAxis("Vertical") * acceleration);
         
         //Calculate the new movement vector
-        movement += Quaternion.Euler(0, -45, 0) * input * moveSpeed ;
+        movement += Quaternion.Euler(0, -45, 0) * input;
 
+        if (movement.magnitude > moveSpeed)
+        {
+            movement = movement.normalized * moveSpeed;
+        }
+
+        if (powerLevel > 0)
+        {
+            if (movement.sqrMagnitude > 0.2f)
+            {
+                head.transform.rotation = Quaternion.RotateTowards(head.transform.rotation, Quaternion.LookRotation(movement), maxTurnDeg * Time.deltaTime);
+                treads.transform.rotation = Quaternion.LookRotation(movement);
+            }
+
+            //Debug.DrawRay(solarPanel.transform.position, -sun.transform.forward);
+            if (Physics.Raycast(new Ray(solarPanel.transform.position, -sun.transform.forward), 100))
+            {
+                powerLevel -= curDrainRate * Time.deltaTime;
+            }
+            else if (powerLevel < 1)
+            {
+                powerLevel += Time.deltaTime * rechargeRateMultiplier;
+
+                if (powerLevel > 1)
+                    powerLevel = 1;
+            }
+        }
+        else
+        {
+            movement = Vector3.zero;
+        }
 
         if (controller.isGrounded)
         {
-            if (powerLevel > 0)
-            {
-                if (movement.sqrMagnitude > 0.2f)
-                {
-                    head.transform.rotation = Quaternion.RotateTowards(head.transform.rotation, Quaternion.LookRotation(movement), maxTurnDeg * Time.deltaTime);
-                    treads.transform.rotation = Quaternion.LookRotation(movement);
-                }
-
-                //Debug.DrawRay(solarPanel.transform.position, -sun.transform.forward);
-                if (Physics.Raycast(new Ray(solarPanel.transform.position, -sun.transform.forward), 100))
-                {
-                    powerLevel -= curDrainRate * Time.deltaTime;
-                }
-                else if (powerLevel < 1)
-                {
-                    powerLevel += Time.deltaTime * rechargeRateMultiplier;
-
-                    if (powerLevel > 1)
-                        powerLevel = 1;
-                }
-            }
-            else
-            {
-                movement = Vector3.zero;
-            }
-
             trueMovement = movement;
         }
         else
