@@ -39,9 +39,49 @@ public class Player : MonoBehaviour {
 
     bool respawning;
 
+    public void StartLevel(int index)
+    {
+        switch(index)
+        {
+            case 1:
+                string[] introText =
+                {
+                "POWER SYSTEM FAILURE",
+                "RUNNING SYSTEM DIAGNOSTICS...",
+                "SYSTEM DIAGNOSTICS REPORT:\nCAPACITOR BANK FAILURE",
+                "EMERGENCY SHUT DOWN IMMINENT",
+                "EMERGENCY SHUT DOWN CANCELLED",
+                "POWER SOURCE DETECTED...",
+                "SOLAR CELLS ARE OPERATIONAL",
+                "DIRECTIVES:\nREMAIN IN DIRECT SUNLIGHT\nSEEK REPAIR"
+                };
+
+                float[] introTextTimes =
+                {
+                     3,
+                     3,
+                     4,
+                     2,
+                     1,
+                     2,
+                     3,
+                     4
+                };
+
+                dialogue.MessageChain(introText, introTextTimes);
+                break;
+            default:
+                dialogue.ShowText("DEFAULT TEXT", 5);
+                break;
+        }
+        
+    }
+
 	void Start () {
         movement = new Vector3();
         trueMovement = new Vector3();
+
+        //DontDestroyOnLoad(gameObject);
 
         controller = GetComponent<CharacterController>();
         treads = transform.Find("Treads").gameObject;
@@ -60,31 +100,17 @@ public class Player : MonoBehaviour {
 
         if (SceneManager.GetActiveScene().name == "Level1")
         {
-            string[] introText =
-            {
-            "POWER SYSTEM FAILURE",
-            "RUNNING SYSTEM DIAGNOSTICS...",
-            "SYSTEM DIAGNOSTICS REPORT:\nCAPACITOR BANK FAILURE",
-            "EMERGENCY SHUT DOWN IMMINENT",
-            "EMERGENCY SHUT DOWN CANCELLED",
-            "POWER SOURCE DETECTED...",
-            "SOLAR CELLS ARE OPERATIONAL",
-            "DIRECTIVES:\nREMAIN IN DIRECT SUNLIGHT\nSEEK REPAIR"
-            };
+            StartLevel(1);
+        }
 
-            float[] introTextTimes =
-            {
-            2,
-            3,
-            4,
-            2,
-            1,
-            2,
-            3,
-            4
-            };
 
-            dialogue.MessageChain(introText, introTextTimes);
+        //Turn on particle systems
+        foreach (ParticleSystem sys in dustSystems)
+        {
+            ParticleSystem.EmissionModule emission = sys.emission;
+            emission.enabled = true;
+            emission.rateOverDistance = 10;
+            emission.rateOverDistanceMultiplier = 1;
         }
     }
 
@@ -165,7 +191,7 @@ public class Player : MonoBehaviour {
         //Stop camera tracking
         cam.GetComponent<CameraController>().enabled = false;
 
-        //Turn of particle systems
+        //Turn off particle systems
         foreach (ParticleSystem sys in dustSystems)
         {
             ParticleSystem.EmissionModule emission = sys.emission;
@@ -195,7 +221,7 @@ public class Player : MonoBehaviour {
 
         respawning = false;
 
-        //Turn off particle systems
+        //Turn on particle systems
         foreach (ParticleSystem sys in dustSystems)
         {
             ParticleSystem.EmissionModule emission = sys.emission;

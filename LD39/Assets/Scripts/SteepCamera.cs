@@ -19,12 +19,18 @@ public class SteepCamera : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        rotateUp = true;
+        if (other.transform.parent != null && other.transform.parent.GetComponent<Player>() != null)
+        {
+            rotateUp = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        rotateDown = true;
+        if (other.transform.parent != null && other.transform.parent.GetComponent<Player>() != null)
+        {
+            rotateDown = true;
+        }
     }
 
     private void Update()

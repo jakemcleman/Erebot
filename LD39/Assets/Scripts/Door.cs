@@ -15,6 +15,15 @@ public class Door : Activatable
     void Start()
     {
         isMoving = false;
+
+        if(open)
+        {
+            transform.rotation = Quaternion.Euler(openRotation);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(closedRotation);
+        }
     }
 
     void Update()

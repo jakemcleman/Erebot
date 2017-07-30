@@ -10,19 +10,18 @@ public class Button : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        foreach (Activatable target in targets)
+        if ((!fireOnce || !hasFired) && other.transform.parent != null && other.transform.parent.gameObject.GetComponent<Player>() != null)
         {
-            if (target == null)
+            foreach (Activatable target in targets)
             {
-                Debug.LogWarning("No target on button!");
-            }
-            else
-            {
-                Debug.Log("Button pressed!");
-                if ((!fireOnce || !hasFired) && other.transform.parent != null && other.transform.parent.gameObject.GetComponent<Player>() != null)
+                if (target == null)
+                {
+                    Debug.LogWarning("No target on button!");
+                }
+                else
                 {
                     Debug.Log("Button activated!");
-                    target.Activate(other.gameObject);
+                    target.Activate(other.transform.parent.gameObject);
                     hasFired = true;
                 }
             }
