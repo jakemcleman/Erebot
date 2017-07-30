@@ -679,7 +679,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Erebot 6
+  m_Text: 'Erebot
+
+'
 --- !u!222 &1154721229
 CanvasRenderer:
   m_ObjectHideFlags: 0

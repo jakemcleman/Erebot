@@ -20,10 +20,10 @@ MonoBehaviour:
     y: 30
     width: 1687
     height: 1338
-  m_MinSize: {x: 683, y: 492}
-  m_MaxSize: {x: 14004, y: 14042}
+  m_MinSize: {x: 679, y: 450}
+  m_MaxSize: {x: 14002, y: 14021}
   vertical: 0
-  controlID: 9665
+  controlID: 5828
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -120,10 +120,10 @@ MonoBehaviour:
     y: 0
     width: 1206
     height: 1338
-  m_MinSize: {x: 202, y: 342}
-  m_MaxSize: {x: 4002, y: 8042}
+  m_MinSize: {x: 202, y: 321}
+  m_MaxSize: {x: 4002, y: 8021}
   vertical: 1
-  controlID: 9666
+  controlID: 5829
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -178,14 +178,14 @@ MonoBehaviour:
     width: 1204
     height: 945
   m_SceneLighting: 1
-  lastFramingTime: 398.11008080966303
+  lastFramingTime: 806.2777331141552
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 291.63727, y: 632.6312, z: -839.6858}
+    m_Target: {x: 493.10004, y: 125.29999, z: 0}
     speed: 2
-    m_Value: {x: 291.63727, y: 632.6312, z: -839.6858}
+    m_Value: {x: 493.10004, y: 125.29999, z: 0}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -208,13 +208,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: 0.093303, y: 0.01122015, z: -0.0010653366, w: 0.995574}
+    m_Target: {x: -0.012236171, y: -0.18124937, z: 0.0022693006, w: -0.9833585}
     speed: 2
-    m_Value: {x: -0.093303, y: -0.011220151, z: 0.0010653366, w: -0.99557406}
+    m_Value: {x: -0.0122361705, y: -0.18124937, z: 0.0022693004, w: -0.98335844}
   m_Size:
-    m_Target: 18.111082
+    m_Target: 1462.7428
     speed: 2
-    m_Value: 18.111082
+    m_Value: 1462.7428
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -286,8 +286,8 @@ MonoBehaviour:
     y: 966
     width: 1206
     height: 372
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 8}
   m_Panes:
   - {fileID: 8}
@@ -339,10 +339,10 @@ MonoBehaviour:
     y: 0
     width: 481
     height: 1338
-  m_MinSize: {x: 481, y: 492}
-  m_MaxSize: {x: 10002, y: 14042}
+  m_MinSize: {x: 477, y: 450}
+  m_MaxSize: {x: 10000, y: 14021}
   vertical: 1
-  controlID: 9624
+  controlID: 6021
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -362,11 +362,11 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 481
-    height: 894
-  m_MinSize: {x: 481, y: 221}
-  m_MaxSize: {x: 8006, y: 4021}
+    height: 895
+  m_MinSize: {x: 477, y: 200}
+  m_MaxSize: {x: 8002, y: 4021}
   vertical: 0
-  controlID: 9521
+  controlID: 5940
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -384,9 +384,9 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 202
-    height: 894
-  m_MinSize: {x: 204, y: 221}
-  m_MaxSize: {x: 4004, y: 4021}
+    height: 895
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 12}
   m_Panes:
   - {fileID: 12}
@@ -417,12 +417,12 @@ MonoBehaviour:
     x: 1271
     y: 100
     width: 198
-    height: 873
+    height: 874
   m_TreeViewState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 1cb10000
-    m_LastClickedID: 45340
-    m_ExpandedIDs: e02efdff089afdff5aacfdff38b1fdff1ce4ffff1afcffff00000000782d00006aa000001ea2000038b10000
+    scrollPos: {x: 0, y: 416}
+    m_SelectedIDs: aeb1ffff
+    m_LastClickedID: -20050
+    m_ExpandedIDs: aeb1fffffcddffff34e4ffff1afcffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -441,7 +441,7 @@ MonoBehaviour:
       m_ClientGUIView: {fileID: 11}
     m_SearchString: 
   m_ExpandedScenes:
-  - Level1
+  - MainMenu
   m_CurrenRootInstanceID: 0
   m_Locked: 0
   m_CurrentSortingName: TransformSorting
@@ -462,9 +462,9 @@ MonoBehaviour:
     x: 202
     y: 0
     width: 279
-    height: 894
-  m_MinSize: {x: 277, y: 71}
-  m_MaxSize: {x: 4002, y: 4021}
+    height: 895
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -496,7 +496,7 @@ MonoBehaviour:
     x: 1473
     y: 100
     width: 277
-    height: 873
+    height: 874
   m_ScrollPosition: {x: 0, y: 0}
   m_InspectorMode: 0
   m_PreviewResizer:
@@ -545,11 +545,11 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 894
+    y: 895
     width: 481
-    height: 444
-  m_MinSize: {x: 232, y: 271}
-  m_MaxSize: {x: 10002, y: 10021}
+    height: 443
+  m_MinSize: {x: 230, y: 250}
+  m_MaxSize: {x: 10000, y: 10000}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -578,9 +578,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 1271
-    y: 994
+    y: 995
     width: 479
-    height: 423
+    height: 422
   m_SearchFilter:
     m_NameFilter: 
     m_ClassNames: []
@@ -593,19 +593,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Textures
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Textures
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\aweso\Documents\LD39\LD39\LD39
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: ecb00000
-    m_LastClickedID: 45292
-    m_ExpandedIDs: 00000000222600003826000000ca9a3bffffff7f
+    m_SelectedIDs: 7a260000
+    m_LastClickedID: 9850
+    m_ExpandedIDs: 000000001e2600003626000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -633,7 +633,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000222600003826000000ca9a3bffffff7f
+    m_ExpandedIDs: 000000001e2600003626000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -658,9 +658,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 1cb10000
-    m_LastClickedInstanceID: 45340
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: aeb1ffff
+    m_LastClickedInstanceID: -20050
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000a22600006226000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0

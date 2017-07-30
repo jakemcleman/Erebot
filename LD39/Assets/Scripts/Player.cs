@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
@@ -29,6 +30,8 @@ public class Player : MonoBehaviour {
     GameObject solarPanel;
     GameObject head;
 
+    DialogueDisplay dialogue;
+
     public GameObject sun;
     public float rechargeRateMultiplier = 0.2f;
 
@@ -52,6 +55,37 @@ public class Player : MonoBehaviour {
 
         //Fade in
         fadeObject.GetComponent<Image>().CrossFadeAlpha(0, 2, false);
+
+        dialogue = FindObjectOfType<DialogueDisplay>();
+
+        if (SceneManager.GetActiveScene().name == "Level1")
+        {
+            string[] introText =
+            {
+            "POWER SYSTEM FAILURE",
+            "RUNNING SYSTEM DIAGNOSTICS...",
+            "SYSTEM DIAGNOSTICS REPORT:\nCAPACITOR BANK FAILURE",
+            "EMERGENCY SHUT DOWN IMMINENT",
+            "EMERGENCY SHUT DOWN CANCELLED",
+            "POWER SOURCE DETECTED...",
+            "SOLAR CELLS ARE OPERATIONAL",
+            "DIRECTIVES:\nREMAIN IN DIRECT SUNLIGHT\nSEEK REPAIR"
+            };
+
+            float[] introTextTimes =
+            {
+            2,
+            3,
+            4,
+            2,
+            1,
+            2,
+            3,
+            4
+            };
+
+            dialogue.MessageChain(introText, introTextTimes);
+        }
     }
 
     void Update()
