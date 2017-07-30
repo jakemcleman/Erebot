@@ -16,6 +16,8 @@ public class Player : MonoBehaviour {
 
     public float curDrainRate;
 
+    public float maxTreadAudioVol = 0.5f;
+
     public GameObject deadBotPrefab;
 
     public GameObject fadeObject;
@@ -34,6 +36,9 @@ public class Player : MonoBehaviour {
 
     public GameObject sun;
     public float rechargeRateMultiplier = 0.2f;
+
+    AudioSource trackAudio;
+    AudioSource powerAudio;
 
     public Vector3 spawnPoint;
 
@@ -87,7 +92,9 @@ public class Player : MonoBehaviour {
         treads = transform.Find("Treads").gameObject;
         head = transform.Find("Head").gameObject;
         solarPanel = head.transform.Find("SolarPanel").gameObject;
-        
+
+        trackAudio = GetComponent<AudioSource>();
+        powerAudio = head.GetComponent<AudioSource>();
 
         spawnPoint = transform.position;
 
@@ -138,6 +145,9 @@ public class Player : MonoBehaviour {
         {
             movement = movement.normalized * moveSpeed;
         }
+
+        float moveSpeedPercent = (movement.magnitude / moveSpeed);
+        trackAudio.volume = moveSpeedPercent * moveSpeedPercent * maxTreadAudioVol;
 
         if (powerLevel > 0)
         {
@@ -201,6 +211,7 @@ public class Player : MonoBehaviour {
         }
 
         //Fade out
+        powerAudio.Play();
         fadeObject.GetComponent<Image>().CrossFadeAlpha(1, 2, false);
         yield return new WaitForSeconds(2);
 

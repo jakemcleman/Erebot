@@ -7,12 +7,21 @@ public class PowerLevelIndicator : MonoBehaviour {
     Player player;
     public int numBars = 10;
     Text text;
+
+    int lastBars;
+
+    public AudioClip barUpSound;
+    public AudioClip barDownSound;
+    AudioSource audioSource;
+
 	// Use this for initialization
 	void Start ()
     {
         player = GameObject.FindObjectOfType<Player>();
         text = GetComponent<Text>();
+        audioSource = GetComponent<AudioSource>();
 
+        lastBars = numBars;
     }
 	
 	// Update is called once per frame
@@ -40,6 +49,17 @@ public class PowerLevelIndicator : MonoBehaviour {
         {
             displayText = "- - - -";
         }
+
+        if(powerLevel > lastBars)
+        {
+            audioSource.PlayOneShot(barUpSound);
+        }
+        else if (powerLevel < lastBars)
+        {
+            audioSource.PlayOneShot(barDownSound);
+        }
+
+        lastBars = powerLevel;
 
         text.text = displayText;
 	}
