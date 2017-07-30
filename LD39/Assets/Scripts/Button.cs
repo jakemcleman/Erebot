@@ -27,4 +27,16 @@ public class Button : MonoBehaviour {
             }
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.cyan;
+        foreach (Activatable target in targets)
+        {
+            if (target != null)
+            {
+                Gizmos.DrawLine(transform.position, target.transform.position);
+            }
+        }
+    }
 }
