@@ -19,6 +19,8 @@ public class Player : MonoBehaviour {
 
     public GameObject fadeObject;
 
+    public ParticleSystem[] dustSystems;
+
     Vector3 movement;
     Vector3 trueMovement;
     CharacterController controller;
@@ -30,7 +32,7 @@ public class Player : MonoBehaviour {
     public GameObject sun;
     public float rechargeRateMultiplier = 0.2f;
 
-    Vector3 spawnPoint;
+    public Vector3 spawnPoint;
 
     bool respawning;
 
@@ -86,7 +88,8 @@ public class Player : MonoBehaviour {
             }
 
             //Debug.DrawRay(solarPanel.transform.position, -sun.transform.forward);
-            if (Physics.Raycast(new Ray(solarPanel.transform.position, -sun.transform.forward), 100))
+            Ray ray = new Ray(solarPanel.transform.position, -sun.transform.forward);
+            if (Physics.Raycast(ray, 1000, -1, QueryTriggerInteraction.Ignore))
             {
                 powerLevel -= curDrainRate * Time.deltaTime;
             }
@@ -123,14 +126,23 @@ public class Player : MonoBehaviour {
 
     IEnumerator Respawn()
     {
-        //Fade out
-        float timer = 2;
-        fadeObject.GetComponent<Image>().CrossFadeAlpha(1, 2, false);
-        while(timer > 0)
+        GameObject cam = Camera.main.gameObject;
+
+        //Stop camera tracking
+        cam.GetComponent<CameraController>().enabled = false;
+
+        //Turn of particle systems
+        foreach (ParticleSystem sys in dustSystems)
         {
-            timer -= Time.deltaTime;
-            yield return null;
+            ParticleSystem.EmissionModule emission = sys.emission;
+            emission.enabled = false;
+            emission.rateOverDistance = 0;
+            emission.rateOverDistanceMultiplier = 0;
         }
+
+        //Fade out
+        fadeObject.GetComponent<Image>().CrossFadeAlpha(1, 2, false);
+        yield return new WaitForSeconds(2);
 
         //Respawn
         Instantiate(deadBotPrefab, transform.position, transform.rotation);
@@ -139,9 +151,26 @@ public class Player : MonoBehaviour {
         trueMovement = Vector3.zero;
         powerLevel = 1;
 
+        //Reposition Camera
+        cam.transform.SetPositionAndRotation(spawnPoint + new Vector3(20, 15, -26), cam.transform.rotation);
+        cam.GetComponent<CameraController>().enabled = true;
+
         //Fade in
         fadeObject.GetComponent<Image>().CrossFadeAlpha(0, 2, false);
+        yield return new WaitForSeconds(2);
 
         respawning = false;
+
+        //Turn off particle systems
+        foreach (ParticleSystem sys in dustSystems)
+        {
+            ParticleSystem.EmissionModule emission = sys.emission;
+            emission.enabled = true;
+            emission.rateOverDistance = 10;
+            emission.rateOverDistanceMultiplier = 1;
+        }
+        //Resume camera tracking
+        
+
     }
 }

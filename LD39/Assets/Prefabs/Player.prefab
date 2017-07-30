@@ -280,7 +280,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1419365336647322}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.92, y: 0.87, z: -10.36}
+  m_LocalPosition: {x: 4.9, y: 0.87, z: 87.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4793371143766298}
@@ -474,8 +474,13 @@ MonoBehaviour:
   curDrainRate: 0
   deadBotPrefab: {fileID: 1823015450845862, guid: 918a3e7db2b56fa4aa05b16df53da601,
     type: 2}
+  fadeObject: {fileID: 0}
+  dustSystems:
+  - {fileID: 198920575967503490}
+  - {fileID: 198316128182461288}
   sun: {fileID: 0}
   rechargeRateMultiplier: 0.2
+  spawnPoint: {x: 0, y: 0, z: 0}
 --- !u!143 &143346743818942192
 CharacterController:
   m_ObjectHideFlags: 1

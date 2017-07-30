@@ -40,7 +40,7 @@ public class Door : Activatable
         }
     }
 
-    public override void Activate()
+    public override void Activate(GameObject player)
     {
         Debug.Log("Door Moving");
         open = !open;

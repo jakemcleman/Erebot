@@ -3,43 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Button : MonoBehaviour {
-    public Activatable target;
+    public Activatable[] targets;
     public bool fireOnce = false;
 
     bool hasFired;
 
     void OnTriggerEnter(Collider other)
     {
-        if (target == null)
+        foreach (Activatable target in targets)
         {
-            Debug.LogWarning("No target on button!");
-        }
-        else
-        {
-            Debug.Log("Button pressed!");
-            if ((!fireOnce || !hasFired))
+            if (target == null)
             {
-                Debug.Log("Button activated!");
-                target.Activate();
-                hasFired = true;
+                Debug.LogWarning("No target on button!");
             }
-        }
-    }
-
-    void OnCollisionEnter(Collision other)
-    {
-        if (target == null)
-        {
-            Debug.LogWarning("No target on button!");
-        }
-        else
-        {
-            Debug.Log("Button pressed!");
-            if ((!fireOnce || !hasFired))
+            else
             {
-                Debug.Log("Button activated!");
-                target.Activate();
-                hasFired = true;
+                Debug.Log("Button pressed!");
+                if ((!fireOnce || !hasFired) && other.transform.parent != null && other.transform.parent.gameObject.GetComponent<Player>() != null)
+                {
+                    Debug.Log("Button activated!");
+                    target.Activate(other.gameObject);
+                    hasFired = true;
+                }
             }
         }
     }
