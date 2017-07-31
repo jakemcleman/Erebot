@@ -44,6 +44,9 @@ public class Player : MonoBehaviour {
 
     bool respawning;
 
+    public bool paused;
+    public GameObject pauseMenu;
+
     public void StartLevel(int index)
     {
         switch(index)
@@ -64,13 +67,13 @@ public class Player : MonoBehaviour {
                 float[] introTextTimes =
                 {
                      3,
+                     1.5f,
                      3,
-                     4,
                      2,
                      1,
-                     2,
                      3,
-                     4
+                     4,
+                     6
                 };
 
                 dialogue.MessageChain(introText, introTextTimes);
@@ -83,6 +86,8 @@ public class Player : MonoBehaviour {
     }
 
 	void Start () {
+        SetPaused(false);
+
         movement = new Vector3();
         trueMovement = new Vector3();
 
@@ -121,77 +126,121 @@ public class Player : MonoBehaviour {
         }
     }
 
+    public void SetPaused(bool paused)
+    {
+        pauseMenu.SetActive(paused);
+        this.paused = paused;
+
+        Cursor.visible = paused;
+    }
+
+    public void Pause()
+    {
+        SetPaused(true);
+    }
+
+    public void Unpause()
+    {
+        SetPaused(false);
+    }
+
+    public void ToMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     void Update()
     {
-        curDrainRate = 1.0f + (movement.magnitude * moveDrainRate);
-
-        if (transform.position.y < -50)
+        if(Input.GetKeyDown(KeyCode.F12))
         {
-            transform.position = spawnPoint;
-            movement = Vector3.zero;
-            trueMovement = Vector3.zero;
+            string timestamp = System.DateTime.Now.Month + "-" + System.DateTime.Now.Day + "." + System.DateTime.Now.Hour + "-" + System.DateTime.Now.Minute + "-" + System.DateTime.Now.Second;
+            ScreenCapture.CaptureScreenshot(Application.persistentDataPath + "\\screenshot_" + timestamp + ".png");
         }
 
-        //Scale down the input every frame
-        movement *= 0.95f;
-
-        //Read the input from keyboard
-        Vector3 input = new Vector3(Input.GetAxis("Horizontal") * acceleration, 0, Input.GetAxis("Vertical") * acceleration);
-        
-        //Calculate the new movement vector
-        movement += Quaternion.Euler(0, -45, 0) * input;
-
-        if (movement.magnitude > moveSpeed)
+        if (paused)
         {
-            movement = movement.normalized * moveSpeed;
-        }
-
-        float moveSpeedPercent = (movement.magnitude / moveSpeed);
-        trackAudio.volume = moveSpeedPercent * moveSpeedPercent * maxTreadAudioVol;
-
-        if (powerLevel > 0)
-        {
-            if (movement.sqrMagnitude > 0.2f)
+            if(Input.GetButtonDown("Menu"))
             {
-                head.transform.rotation = Quaternion.RotateTowards(head.transform.rotation, Quaternion.LookRotation(movement), maxTurnDeg * Time.deltaTime);
-                treads.transform.rotation = Quaternion.LookRotation(movement);
-            }
-
-            //Debug.DrawRay(solarPanel.transform.position, -sun.transform.forward);
-            Ray ray = new Ray(solarPanel.transform.position, -sun.transform.forward);
-            if (Physics.Raycast(ray, 1000, -1, QueryTriggerInteraction.Ignore))
-            {
-                powerLevel -= curDrainRate * Time.deltaTime;
-            }
-            else if (powerLevel < 1)
-            {
-                powerLevel += Time.deltaTime * rechargeRateMultiplier;
-
-                if (powerLevel > 1)
-                    powerLevel = 1;
+                SetPaused(false);
             }
         }
         else
         {
-            movement = Vector3.zero;
-
-            if (!respawning)
+            if (Input.GetButtonDown("Menu"))
             {
-                StartCoroutine("Respawn");
-                respawning = true;
+                SetPaused(true);
             }
-        }
 
-        if (controller.isGrounded)
-        {
-            trueMovement = movement;
-        }
-        else
-        {
-            trueMovement.y -= 9.81f * Time.deltaTime;
-        }
+            curDrainRate = 1.0f + (movement.magnitude * moveDrainRate);
 
-        controller.Move(trueMovement * Time.deltaTime);
+            if (transform.position.y < -50)
+            {
+                transform.position = spawnPoint;
+                movement = Vector3.zero;
+                trueMovement = Vector3.zero;
+            }
+
+            //Scale down the input every frame
+            movement *= 0.95f;
+
+            //Read the input from keyboard
+            Vector3 input = new Vector3(Input.GetAxis("Horizontal") * acceleration, 0, Input.GetAxis("Vertical") * acceleration);
+
+            //Calculate the new movement vector
+            movement += Quaternion.Euler(0, -45, 0) * input;
+
+            if (movement.magnitude > moveSpeed)
+            {
+                movement = movement.normalized * moveSpeed;
+            }
+
+            float moveSpeedPercent = (movement.magnitude / moveSpeed);
+            trackAudio.volume = moveSpeedPercent * moveSpeedPercent * maxTreadAudioVol;
+
+            if (powerLevel > 0)
+            {
+                if (movement.sqrMagnitude > 0.2f)
+                {
+                    head.transform.rotation = Quaternion.RotateTowards(head.transform.rotation, Quaternion.LookRotation(movement), maxTurnDeg * Time.deltaTime);
+                    treads.transform.rotation = Quaternion.LookRotation(movement);
+                }
+
+                //Debug.DrawRay(solarPanel.transform.position, -sun.transform.forward);
+                Ray ray = new Ray(solarPanel.transform.position, -sun.transform.forward);
+                if (Physics.Raycast(ray, 1000, -1, QueryTriggerInteraction.Ignore))
+                {
+                    powerLevel -= curDrainRate * Time.deltaTime;
+                }
+                else if (powerLevel < 1)
+                {
+                    powerLevel += Time.deltaTime * rechargeRateMultiplier;
+
+                    if (powerLevel > 1)
+                        powerLevel = 1;
+                }
+            }
+            else
+            {
+                movement = Vector3.zero;
+
+                if (!respawning)
+                {
+                    StartCoroutine("Respawn");
+                    respawning = true;
+                }
+            }
+
+            if (controller.isGrounded)
+            {
+                trueMovement = movement;
+            }
+            else
+            {
+                trueMovement.y -= 9.81f * Time.deltaTime;
+            }
+
+            controller.Move(trueMovement * Time.deltaTime);
+        }
     }
 
     IEnumerator Respawn()

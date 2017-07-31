@@ -17,6 +17,7 @@ public class MainMenuBot : MonoBehaviour {
     void Start () {
         //Fade in
         fadeObject.GetComponent<Image>().CrossFadeAlpha(0, 1, false);
+        Cursor.visible = true;
     }
 
     public void StartGame()
@@ -28,6 +29,8 @@ public class MainMenuBot : MonoBehaviour {
     {
         StartCoroutine("RollOffLeft");
     }
+
+    
 
 
     IEnumerator RollOffLeft()

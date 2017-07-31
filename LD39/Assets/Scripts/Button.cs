@@ -8,10 +8,18 @@ public class Button : MonoBehaviour {
 
     bool hasFired;
 
+
+
     void OnTriggerEnter(Collider other)
     {
         if ((!fireOnce || !hasFired) && other.transform.parent != null && other.transform.parent.gameObject.GetComponent<Player>() != null)
         {
+            AudioSource audio = GetComponent<AudioSource>();
+            if (audio != null)
+            {
+                audio.Play();
+            }
+
             foreach (Activatable target in targets)
             {
                 if (target == null)
