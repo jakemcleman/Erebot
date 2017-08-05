@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23210851361125518}
   - component: {fileID: 95937464440834198}
   - component: {fileID: 65515711374442670}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SideCollider (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 23338494864024854}
   - component: {fileID: 95432287768573084}
   - component: {fileID: 65182743412846648}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SideCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,8 +93,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1589290693069030}
-  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 45.83734, y: 8.926134, z: 153.53635}
+  m_LocalRotation: {x: -0.2705981, y: 0.6532815, z: -0.6532815, w: -0.2705981}
+  m_LocalPosition: {x: 0.65, y: 9.92, z: 439.64}
   m_LocalScale: {x: 10, y: 1, z: 1}
   m_Children:
   - {fileID: 4502273498731904}
@@ -102,7 +102,7 @@ Transform:
   - {fileID: 4373491813910122}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: -90, z: -180}
+  m_LocalEulerAnglesHint: {x: 90, y: 180, z: -45}
 --- !u!4 &4373491813910122
 Transform:
   m_ObjectHideFlags: 1
@@ -408,7 +408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fb58d60042bf24488542893bd1ded0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openRotation: {x: 180, y: -90, z: -180}
-  closedRotation: {x: 90, y: 0, z: -90}
+  openRotation: {x: 0, y: 225, z: 0}
+  closedRotation: {x: 90, y: 180, z: -45}
   maxOpenSpeed: 10
   open: 0

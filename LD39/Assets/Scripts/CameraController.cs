@@ -5,11 +5,14 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
     public GameObject target;
     public float moveSpeed;
+    public float maxRotSpeed = 10;
     public float edgeDistance = 0.3f;
+    public float orbitDistance = 10;
+    public float wallOffset = 0.5f;
 
     Camera cam;
 
-    public bool enabled;
+    public bool tracking_enabled;
 
     void Start()
     {
@@ -17,38 +20,34 @@ public class CameraController : MonoBehaviour {
     }
 
     void Update () {
-        if (enabled && target != null)
+        if (tracking_enabled && target != null)
         {
-            Vector3 targetScreenPos = cam.WorldToViewportPoint(target.transform.position);
-            Vector3 motion = new Vector3();
+            Vector3 rotationChange = new Vector3();
+            rotationChange.x = -Input.GetAxis("Mouse Y");
+            rotationChange.y = Input.GetAxis("Mouse X");
+            //rotationChange *= Time.deltaTime;
 
-            if (targetScreenPos.x > 1) targetScreenPos.x = 1;
-            else if (targetScreenPos.x < 0) targetScreenPos.x = 0;
+            Quaternion desiredRotation = Quaternion.Euler(transform.rotation.eulerAngles + rotationChange);
 
-            if (targetScreenPos.y > 1) targetScreenPos.y = 1;
-            else if (targetScreenPos.y < 0) targetScreenPos.y = 0;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, maxRotSpeed * Time.deltaTime);
 
-            if (targetScreenPos.x < edgeDistance)
+            Ray toCast = new Ray(target.transform.position, -transform.forward);
+            RaycastHit hit;
+
+            int layerFlag = ~(1 << 2);
+
+            Vector3 position;
+
+            if(Physics.Raycast(toCast, out hit, orbitDistance, layerFlag))
             {
-                motion += Vector3.left * (edgeDistance - targetScreenPos.x) * (1 / edgeDistance);
+                position = hit.point + transform.forward * wallOffset;
             }
-            else if (targetScreenPos.x > 1 - edgeDistance)
+            else
             {
-                motion += Vector3.right * (targetScreenPos.x - (1 - edgeDistance)) * (1 / edgeDistance);
-            }
-
-            if (targetScreenPos.y < edgeDistance)
-            {
-                motion += Vector3.back * (edgeDistance - targetScreenPos.y) * (1 / edgeDistance);
-            }
-            else if (targetScreenPos.y > 1 - edgeDistance)
-            {
-                motion += Vector3.forward * (targetScreenPos.y - (1 - edgeDistance)) * (1 / edgeDistance);
+                position = target.transform.position - (transform.forward * orbitDistance);
             }
 
-            motion = Quaternion.Euler(0, -45, 0) * motion * moveSpeed * Time.deltaTime;
-            transform.position += motion;
-
+            transform.position = position;
         }
     }
 }

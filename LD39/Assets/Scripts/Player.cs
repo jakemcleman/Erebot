@@ -47,6 +47,8 @@ public class Player : MonoBehaviour {
     public bool paused;
     public GameObject pauseMenu;
 
+    GameObject cam;
+
     public void StartLevel(int index)
     {
         switch(index)
@@ -104,6 +106,8 @@ public class Player : MonoBehaviour {
         spawnPoint = transform.position;
 
         respawning = false;
+
+        cam = Camera.main.gameObject;
 
         //Fade in
         fadeObject.GetComponent<Image>().CrossFadeAlpha(0, 2, false);
@@ -187,7 +191,10 @@ public class Player : MonoBehaviour {
             Vector3 input = new Vector3(Input.GetAxis("Horizontal") * acceleration, 0, Input.GetAxis("Vertical") * acceleration);
 
             //Calculate the new movement vector
-            movement += Quaternion.Euler(0, -45, 0) * input;
+            Vector3 euler = cam.transform.rotation.eulerAngles;
+            euler.x = 0;
+            euler.z = 0;
+            movement += Quaternion.Euler(euler) * input;
 
             if (movement.magnitude > moveSpeed)
             {
@@ -207,7 +214,7 @@ public class Player : MonoBehaviour {
 
                 //Debug.DrawRay(solarPanel.transform.position, -sun.transform.forward);
                 Ray ray = new Ray(solarPanel.transform.position, -sun.transform.forward);
-                if (Physics.Raycast(ray, 1000, -1, QueryTriggerInteraction.Ignore))
+                if (Physics.Raycast(ray, 1000, ~(1 << 2), QueryTriggerInteraction.Ignore))
                 {
                     powerLevel -= curDrainRate * Time.deltaTime;
                 }
@@ -248,7 +255,7 @@ public class Player : MonoBehaviour {
         GameObject cam = Camera.main.gameObject;
 
         //Stop camera tracking
-        cam.GetComponent<CameraController>().enabled = false;
+        cam.GetComponent<CameraController>().tracking_enabled = false;
 
         //Turn off particle systems
         foreach (ParticleSystem sys in dustSystems)
@@ -273,7 +280,7 @@ public class Player : MonoBehaviour {
 
         //Reposition Camera
         cam.transform.SetPositionAndRotation(spawnPoint + new Vector3(20, 15, -26), cam.transform.rotation);
-        cam.GetComponent<CameraController>().enabled = true;
+        cam.GetComponent<CameraController>().tracking_enabled = true;
 
         //Fade in
         fadeObject.GetComponent<Image>().CrossFadeAlpha(0, 2, false);
